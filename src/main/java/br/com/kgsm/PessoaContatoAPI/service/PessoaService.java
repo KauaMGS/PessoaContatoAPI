@@ -39,8 +39,8 @@ public class PessoaService {
 	}
 	
 	//UPDATE
-	public Pessoa update(Pessoa pessoa) {
-		Optional<Pessoa> findPessoa = pessoaRepository.findById(pessoa.getId());
+	public Pessoa update(Long id, Pessoa pessoa) {
+		Optional<Pessoa> findPessoa = pessoaRepository.findById(id);
 		
 		if(findPessoa.isPresent()) {
 			Pessoa updPessoa = findPessoa.get();

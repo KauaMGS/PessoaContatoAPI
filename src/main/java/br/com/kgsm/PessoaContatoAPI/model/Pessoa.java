@@ -40,7 +40,9 @@ public class Pessoa {
 	
 	public Pessoa() {}
 
-	public Pessoa(String nome, String endereco, String cep, String cidade, String uf) {
+	public Pessoa(Long id, String nome, String endereco, String cep, String cidade, String uf) {
+		super();
+		this.id = id;
 		this.nome = nome;
 		this.endereco = endereco;
 		this.cep = cep;
