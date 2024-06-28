@@ -42,18 +42,17 @@ public class PessoaService {
 	public Pessoa update(Long id, Pessoa pessoa) {
 		Optional<Pessoa> findPessoa = pessoaRepository.findById(id);
 		
-		if(findPessoa.isPresent()) {
-			Pessoa updPessoa = findPessoa.get();
-			updPessoa.setNome(pessoa.getNome());
-			updPessoa.setCidade(pessoa.getCidade());
-			updPessoa.setEndereco(pessoa.getEndereco());
-			updPessoa.setUf(pessoa.getUf());
-			updPessoa.setCep(pessoa.getCep());
-			
-			return pessoaRepository.save(updPessoa);
-		}
+		if(findPessoa.isEmpty()) return pessoaRepository.save(pessoa);
 		
-		return pessoaRepository.save(pessoa);
+		Pessoa updPessoa = findPessoa.get();
+		updPessoa.setNome(pessoa.getNome());
+		updPessoa.setCidade(pessoa.getCidade());
+		updPessoa.setEndereco(pessoa.getEndereco());
+		updPessoa.setUf(pessoa.getUf());
+		updPessoa.setCep(pessoa.getCep());
+		
+		return pessoaRepository.save(updPessoa);
+			
 	}
 	
 	//DELETE

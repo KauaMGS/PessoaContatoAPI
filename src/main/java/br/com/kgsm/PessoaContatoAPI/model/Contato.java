@@ -32,7 +32,8 @@ public class Contato {
 	
 	public Contato() {}
 
-	public Contato(TipoContato tipoDeContato, String contato, Pessoa pessoa) {
+	public Contato(Long id, TipoContato tipoDeContato, String contato, Pessoa pessoa) {
+		this.id = id;
 		this.tipoDeContato = tipoDeContato;
 		this.contato = contato;
 		this.pessoa = pessoa;
