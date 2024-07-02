@@ -51,7 +51,8 @@
   </div>
 
   <div class="section">
-    <a href="README.md" download class="download-btn">Baixar README.md</a>
+    <h2>📝 Licença</h2>
+    <p>Este projeto está licenciado sob a MIT License</p>
   </div>
 
 </body>
