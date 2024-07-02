@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.kgsm.PessoaContatoAPI.DTO.contato.ContatoDTO;
+import br.com.kgsm.PessoaContatoAPI.DTO.contato.ContatoSimplesDTO;
 import br.com.kgsm.PessoaContatoAPI.DTO.pessoa.PessoaContatoDTO;
 import br.com.kgsm.PessoaContatoAPI.model.Contato;
 import br.com.kgsm.PessoaContatoAPI.service.ContatoService;
@@ -70,12 +71,12 @@ public class ContatoResource {
 	}
 	
 	@Operation(summary = "Atualizar Contato por ID", 
-	           description = "Atualiza os dados de um contato existente com base no ID fornecido.")
+	           description = "Atualiza os dados de um contato existente com base no ID fornecido, sem a necessidade de passar um ID no Request body, apenas nos Parameters.")
 	@ApiResponse(responseCode = "200", description = "Contato atualizado com sucesso.")
 	@ApiResponse(responseCode = "404", description = "Falha ao atualizar o contato.")
 	@PutMapping("/{id}")
-	public ResponseEntity<Contato> update(@PathVariable Long id, @RequestBody ContatoDTO contatoDTO){
-		Contato updContato = contatoService.update(id, contatoDTO);
+	public ResponseEntity<Contato> update(@PathVariable Long id, @RequestBody ContatoSimplesDTO contatoSimplesDTO){
+		Contato updContato = contatoService.update(id, contatoSimplesDTO);
 		
 		if(updContato == null) return ResponseEntity.notFound().build();
 		

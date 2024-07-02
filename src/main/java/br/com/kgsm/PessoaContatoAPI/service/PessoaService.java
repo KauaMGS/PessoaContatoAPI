@@ -53,7 +53,7 @@ public class PessoaService {
 		
 		Optional<Pessoa> findPessoa = pessoaRepository.findById(id);
 		
-		if(findPessoa.isEmpty()) return pessoaRepository.save(pessoa.toPessoa());
+		if(findPessoa.isEmpty()) throw new PessoaNaoEncontradaException();
 		
 		Pessoa updPessoa = findPessoa.get();
 		updPessoa.setNome(pessoa.nome());
@@ -62,8 +62,7 @@ public class PessoaService {
 		updPessoa.setUf(pessoa.uf());
 		updPessoa.setCep(pessoa.cep());
 		
-		return pessoaRepository.save(updPessoa);
-			
+		return pessoaRepository.save(updPessoa);		
 	}
 	
 	public void delete(Long id) {

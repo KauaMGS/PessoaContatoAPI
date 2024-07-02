@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.kgsm.PessoaContatoAPI.DTO.contato.ContatoDTO;
+import br.com.kgsm.PessoaContatoAPI.DTO.contato.ContatoSimplesDTO;
 import br.com.kgsm.PessoaContatoAPI.DTO.pessoa.PessoaContatoDTO;
 import br.com.kgsm.PessoaContatoAPI.DTO.pessoa.PessoaSomenteIdDTO;
 import br.com.kgsm.PessoaContatoAPI.exception.exceptions.contato.ContatoNaoEncontradoException;
@@ -71,24 +72,19 @@ public class ContatoService {
 		return listPessoaContato;
 	}
 	
-	public Contato update(Long id, ContatoDTO contatoDTO) {
+	public Contato update(Long id, ContatoSimplesDTO contatoSimplesDTO) {
 	       Optional<Contato> findContato = contatoRepository.findById(id);
 
-	        if (findContato.isEmpty()) return save(contatoDTO);
+	       if(findContato.isEmpty()) throw new ContatoNaoEncontradoException();
+	       
+	       Contato updContato = findContato.get();
+	       updContato.setContato(contatoSimplesDTO.contato());
+	       updContato.setTipoDeContato(contatoSimplesDTO.tipoDeContato());
 
-	        Contato updContato = findContato.get();
-	        updContato.setContato(contatoDTO.contato());
-	        updContato.setTipoDeContato(contatoDTO.tipoDeContato());
-
-	        PessoaSomenteIdDTO pessoaDTO = contatoDTO.pessoa();
-	        if (pessoaDTO != null && pessoaDTO.id() != null) {
-	            Optional<Pessoa> findPessoa = pessoaRepository.findById(pessoaDTO.id());
-	            findPessoa.ifPresent(updContato::setPessoa);
-	        } else {
-	            updContato.setPessoa(null);
-	        }
-
-	        return contatoRepository.save(updContato);
+	       if(updContato.getTipoDeContato() == null) throw new TipoDeContatoNuloException();
+	       if(updContato.getContato() == null || updContato.getContato().equals("")) throw new ContatoVazioOuNuloException();
+	       
+	       return contatoRepository.save(updContato);
 	}
 	
 	public void delete(Long id) {
