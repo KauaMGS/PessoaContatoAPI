@@ -1,4 +1,4 @@
-package br.com.kgsm.PessoaContatoAPI.DTO;
+package br.com.kgsm.PessoaContatoAPI.DTO.contato;
 
 import br.com.kgsm.PessoaContatoAPI.model.enums.TipoContato;
 

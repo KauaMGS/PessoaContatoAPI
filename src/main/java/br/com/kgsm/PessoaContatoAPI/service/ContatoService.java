@@ -7,9 +7,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.kgsm.PessoaContatoAPI.DTO.ContatoDTO;
-import br.com.kgsm.PessoaContatoAPI.DTO.PessoaContatoDTO;
-import br.com.kgsm.PessoaContatoAPI.DTO.PessoaSomenteIdDTO;
+import br.com.kgsm.PessoaContatoAPI.DTO.contato.ContatoDTO;
+import br.com.kgsm.PessoaContatoAPI.DTO.pessoa.PessoaContatoDTO;
+import br.com.kgsm.PessoaContatoAPI.DTO.pessoa.PessoaSomenteIdDTO;
 import br.com.kgsm.PessoaContatoAPI.model.Contato;
 import br.com.kgsm.PessoaContatoAPI.model.Pessoa;
 import br.com.kgsm.PessoaContatoAPI.model.enums.TipoContato;

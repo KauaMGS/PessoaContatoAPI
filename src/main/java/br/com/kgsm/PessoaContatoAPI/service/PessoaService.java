@@ -6,8 +6,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.kgsm.PessoaContatoAPI.DTO.PessoaMalaDiretaDTO;
-import br.com.kgsm.PessoaContatoAPI.DTO.PessoaSemIdDTO;
+import br.com.kgsm.PessoaContatoAPI.DTO.pessoa.PessoaMalaDiretaDTO;
+import br.com.kgsm.PessoaContatoAPI.DTO.pessoa.PessoaSemIdDTO;
 import br.com.kgsm.PessoaContatoAPI.model.Pessoa;
 import br.com.kgsm.PessoaContatoAPI.repository.PessoaRepository;
 

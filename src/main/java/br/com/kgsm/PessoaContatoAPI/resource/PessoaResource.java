@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.kgsm.PessoaContatoAPI.DTO.PessoaMalaDiretaDTO;
-import br.com.kgsm.PessoaContatoAPI.DTO.PessoaSemIdDTO;
+import br.com.kgsm.PessoaContatoAPI.DTO.pessoa.PessoaMalaDiretaDTO;
+import br.com.kgsm.PessoaContatoAPI.DTO.pessoa.PessoaSemIdDTO;
 import br.com.kgsm.PessoaContatoAPI.model.Pessoa;
 import br.com.kgsm.PessoaContatoAPI.service.PessoaService;
 import io.swagger.v3.oas.annotations.Operation;
