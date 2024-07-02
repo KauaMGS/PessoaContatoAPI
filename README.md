@@ -1,48 +1,5 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PessoaContatoAPI - README</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      line-height: 1.6;
-      margin: 20px;
-    }
-    h1, h2, h3 {
-      color: #333;
-    }
-    code {
-      background-color: #f4f4f4;
-      padding: 5px;
-      font-size: 0.9em;
-    }
-    pre {
-      background-color: #f4f4f4;
-      padding: 10px;
-      overflow-x: auto;
-    }
-    .section {
-      margin-bottom: 20px;
-    }
-    .download-btn {
-      display: inline-block;
-      background-color: #4CAF50;
-      color: white;
-      padding: 10px 20px;
-      text-align: center;
-      text-decoration: none;
-      font-size: 16px;
-      cursor: pointer;
-      border-radius: 5px;
-      margin-top: 20px;
-    }
-    .download-btn:hover {
-      background-color: #45a049;
-    }
-  </style>
-</head>
 <body>
 
   <h1>📋 PessoaContatoAPI</h1>
