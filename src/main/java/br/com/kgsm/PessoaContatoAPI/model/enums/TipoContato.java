@@ -31,4 +31,5 @@ public enum TipoContato {
         }
         return null;
     }
+    
 }

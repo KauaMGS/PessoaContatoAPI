@@ -4,7 +4,7 @@ import br.com.kgsm.PessoaContatoAPI.model.enums.TipoContato;
 
 public class PessoaContatoDTO {
     private Long pessoaId;
-    private String nome;
+    private String nome;   
     private TipoContato tipoDeContato;
     private String contato;
 

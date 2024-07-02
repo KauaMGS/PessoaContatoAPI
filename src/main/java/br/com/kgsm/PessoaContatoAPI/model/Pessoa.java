@@ -11,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "tb_pessoa")
@@ -21,6 +22,7 @@ public class Pessoa {
 	private Long id;
 	
 	@Column(nullable = false)
+	@NotBlank
 	private String nome;
 	
 	@Column

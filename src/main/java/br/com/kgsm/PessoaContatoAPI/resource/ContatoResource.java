@@ -56,7 +56,7 @@ public class ContatoResource {
 		return ResponseEntity.ok(findContato);
 	}
 	
-	@Operation(summary = "Listar Contatos de uma Pessoa", 
+	@Operation(summary = "Listar todos Contatos de uma Pessoa", 
 	           description = "Recupera todos os contatos associados a uma pessoa com base no ID da pessoa.")
 	@ApiResponse(responseCode = "200", description = "Contatos da pessoa encontrados.")
 	@ApiResponse(responseCode = "404", description = "Nenhum contato encontrado para a pessoa.")

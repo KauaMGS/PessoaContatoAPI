@@ -10,6 +10,10 @@ import org.springframework.stereotype.Service;
 import br.com.kgsm.PessoaContatoAPI.DTO.contato.ContatoDTO;
 import br.com.kgsm.PessoaContatoAPI.DTO.pessoa.PessoaContatoDTO;
 import br.com.kgsm.PessoaContatoAPI.DTO.pessoa.PessoaSomenteIdDTO;
+import br.com.kgsm.PessoaContatoAPI.exception.exceptions.contato.ContatoNaoEncontradoException;
+import br.com.kgsm.PessoaContatoAPI.exception.exceptions.contato.ContatoVazioOuNuloException;
+import br.com.kgsm.PessoaContatoAPI.exception.exceptions.contato.TipoDeContatoNuloException;
+import br.com.kgsm.PessoaContatoAPI.exception.exceptions.pessoa.PessoaNaoEncontradaException;
 import br.com.kgsm.PessoaContatoAPI.model.Contato;
 import br.com.kgsm.PessoaContatoAPI.model.Pessoa;
 import br.com.kgsm.PessoaContatoAPI.model.enums.TipoContato;
@@ -26,36 +30,37 @@ public class ContatoService {
 	private PessoaRepository pessoaRepository;
 	
 	public Contato save(ContatoDTO contatoDTO) {
+		System.out.println("Chegou aqui!");
+		if(contatoDTO.tipoDeContato() == null) throw new TipoDeContatoNuloException();
+		if(contatoDTO.contato() == null || contatoDTO.contato().equals("")) throw new ContatoVazioOuNuloException();	
+		
 		PessoaSomenteIdDTO pessoaDTO = contatoDTO.pessoa();
-		
-		if (pessoaDTO != null && pessoaDTO.id() != null) {
-            Optional<Pessoa> findPessoa = pessoaRepository.findById(pessoaDTO.id());
 
-            if (findPessoa.isPresent()) {
-                Pessoa pessoa = findPessoa.get();
-                Contato contato = new Contato();
-                contato.setTipoDeContato(contatoDTO.tipoDeContato());
-                contato.setContato(contatoDTO.contato());
-                contato.setPessoa(pessoa);
+        Optional<Pessoa> findPessoa = pessoaRepository.findById(pessoaDTO.id());
+        if(findPessoa.isEmpty()) throw new PessoaNaoEncontradaException();
+        
+        Pessoa pessoa = findPessoa.get();
+        Contato contato = new Contato();
+        contato.setTipoDeContato(contatoDTO.tipoDeContato());
+        contato.setContato(contatoDTO.contato());
+        contato.setPessoa(pessoa);
 
-                return contatoRepository.save(contato);
-            } else {
-                System.out.println("Pessoa não encontrada! id : " + pessoaDTO.id());
-                return null;
-            }
-        } else {
-            System.out.println("Pessoa não encontrada!");
-            return null;
-        }
-		
+        return contatoRepository.save(contato);	
 	}
 	
 	public Optional<Contato> findById(Long id){
+		Optional<Contato> findContato = contatoRepository.findById(id);
+		
+		if(findContato.isEmpty()) throw new ContatoNaoEncontradoException();
+		
 		return contatoRepository.findById(id);
 	}
 	
 	public List<PessoaContatoDTO> findAllContatoDePessoa(Long id){
         List<Object[]> listResult = contatoRepository.findTodosContatosPessoa(id);
+        
+        if(listResult.isEmpty()) throw new PessoaNaoEncontradaException();
+        
         List<PessoaContatoDTO> listPessoaContato = new ArrayList<>();
 		
 		for(Object[] obj : listResult) {
