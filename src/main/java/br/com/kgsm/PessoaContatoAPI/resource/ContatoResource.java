@@ -19,6 +19,8 @@ import br.com.kgsm.PessoaContatoAPI.DTO.ContatoDTO;
 import br.com.kgsm.PessoaContatoAPI.DTO.PessoaContatoDTO;
 import br.com.kgsm.PessoaContatoAPI.model.Contato;
 import br.com.kgsm.PessoaContatoAPI.service.ContatoService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
 @RestController
 @RequestMapping("/api/contatos")
@@ -27,6 +29,11 @@ public class ContatoResource {
 	@Autowired
 	private ContatoService contatoService;
 	
+	@Operation(summary = "Adicionar contato a uma Pessoa", 
+	           description = "Adiciona um contato a uma Pessoa com base no ID fornecido no Request body. <br>"
+	           		+ "Sendo que o tipoDeContato deve ser CELULAR ou TELEFONE.")
+	@ApiResponse(responseCode = "200", description = "Contato criado com sucesso.")
+	@ApiResponse(responseCode = "404", description = "Falha ao criar o contato.")
 	@PostMapping
 	public ResponseEntity<Contato> save(@RequestBody ContatoDTO contatoDTO){
 		Contato newContato = contatoService.save(contatoDTO);
@@ -36,6 +43,10 @@ public class ContatoResource {
 		return ResponseEntity.ok(newContato);
 	}
 	
+	@Operation(summary = "Buscar Contato por ID", 
+	           description = "Recupera um contato existente com base no ID fornecido.")
+	@ApiResponse(responseCode = "200", description = "Contato encontrado.")
+	@ApiResponse(responseCode = "404", description = "Contato não encontrado.")
 	@GetMapping("/{id}")
 	public ResponseEntity<Optional<Contato>> findById(@PathVariable Long id){
 		Optional<Contato> findContato = contatoService.findById(id);
@@ -45,6 +56,10 @@ public class ContatoResource {
 		return ResponseEntity.ok(findContato);
 	}
 	
+	@Operation(summary = "Listar Contatos de uma Pessoa", 
+	           description = "Recupera todos os contatos associados a uma pessoa com base no ID da pessoa.")
+	@ApiResponse(responseCode = "200", description = "Contatos da pessoa encontrados.")
+	@ApiResponse(responseCode = "404", description = "Nenhum contato encontrado para a pessoa.")
 	@GetMapping("/pessoa/{id}")
 	public ResponseEntity<List<PessoaContatoDTO>> findAllContatoDePessoa(Long id){
 		List<PessoaContatoDTO> allContatoPessoaDTO = contatoService.findAllContatoDePessoa(id);
@@ -54,6 +69,10 @@ public class ContatoResource {
 		return ResponseEntity.ok(allContatoPessoaDTO);
 	}
 	
+	@Operation(summary = "Atualizar Contato por ID", 
+	           description = "Atualiza os dados de um contato existente com base no ID fornecido.")
+	@ApiResponse(responseCode = "200", description = "Contato atualizado com sucesso.")
+	@ApiResponse(responseCode = "404", description = "Falha ao atualizar o contato.")
 	@PutMapping("/{id}")
 	public ResponseEntity<Contato> update(@PathVariable Long id, @RequestBody ContatoDTO contatoDTO){
 		Contato updContato = contatoService.update(id, contatoDTO);
@@ -63,6 +82,9 @@ public class ContatoResource {
 		return ResponseEntity.ok(updContato);
 	}
 	
+	@Operation(summary = "Excluir Contato por ID", 
+	           description = "Remove um contato cadastrado com base no ID fornecido.")
+	@ApiResponse(responseCode = "204", description = "Contato excluído com sucesso.")
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> delete(@PathVariable Long id){
 		contatoService.delete(id);

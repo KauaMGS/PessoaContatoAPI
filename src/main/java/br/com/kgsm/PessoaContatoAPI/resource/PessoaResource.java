@@ -19,6 +19,9 @@ import br.com.kgsm.PessoaContatoAPI.DTO.PessoaMalaDiretaDTO;
 import br.com.kgsm.PessoaContatoAPI.DTO.PessoaSemIdDTO;
 import br.com.kgsm.PessoaContatoAPI.model.Pessoa;
 import br.com.kgsm.PessoaContatoAPI.service.PessoaService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
 @RestController
 @RequestMapping("/api/pessoas")
@@ -27,6 +30,10 @@ public class PessoaResource {
 	@Autowired
 	PessoaService pessoaService;
 	
+	@Operation(summary = "Criar nova pessoa", 
+			description = "Cria uma nova entrada de pessoa com base nos dados fornecidos, sem a necessidade de passar um ID no Request body.")
+	@ApiResponse(responseCode = "200", description = "Pessoa criada com sucesso.")
+	@ApiResponse(responseCode = "404", description = "Falha ao criar a pessoa.")
 	@PostMapping
 	public ResponseEntity<Pessoa> save(@RequestBody PessoaSemIdDTO pessoa){
 		Pessoa newPessoa = pessoaService.save(pessoa);
@@ -36,6 +43,10 @@ public class PessoaResource {
 		return ResponseEntity.ok(newPessoa);	
 	}
 	
+	@Operation(summary = "Buscar Pessoa por ID", 
+	           description = "Recupera uma pessoa existente com base no ID fornecido.")
+	@ApiResponse(responseCode = "200", description = "Pessoa encontrada.")
+	@ApiResponse(responseCode = "404", description = "Pessoa não encontrada.")
 	@GetMapping("/{id}")
 	public ResponseEntity<Optional<Pessoa>> findById(@PathVariable Long id){
 		Optional<Pessoa> findPessoa = pessoaService.findById(id);
@@ -45,6 +56,10 @@ public class PessoaResource {
 		return ResponseEntity.ok(findPessoa);
 	}
 	
+	@Operation(summary = "Buscar pessoa para Mala Direta através do ID", 
+	           description = "Obtem o endereço concatenado baseado no ID da pessoa.")
+	@ApiResponse(responseCode = "200", description = "Informações para mala direta obtidas com sucesso.")
+	@ApiResponse(responseCode = "404", description = "Falha ao obter informações para mala direta.")
 	@GetMapping("/maladireta/{id}")
 	public ResponseEntity<PessoaMalaDiretaDTO> malaDireta(@PathVariable Long id){
 		PessoaMalaDiretaDTO pessoaMalaDireta = pessoaService.pessoaMalaDireta(id);
@@ -54,6 +69,10 @@ public class PessoaResource {
 		return ResponseEntity.ok(pessoaMalaDireta);
 	}
 	
+	@Operation(summary = "Listar todas as Pessoas", 
+	           description = "Recupera todas as pessoas cadastradas.")
+	@ApiResponse(responseCode = "200", description = "Lista de pessoas recuperada com sucesso.")
+	@ApiResponse(responseCode = "404", description = "Nenhuma pessoa encontrada.")
 	@GetMapping
 	public ResponseEntity<List<Pessoa>> findAll(){
 		List<Pessoa> allPessoas = pessoaService.findAll();
@@ -64,8 +83,12 @@ public class PessoaResource {
 		return ResponseEntity.ok(allPessoas);
 	}
 	
+	@Operation(summary = "Atualizar Pessoa por ID", 
+	           description = "Atualiza os dados de uma pessoa baseado no ID, sem a necessidade de passar um ID no Request body, apenas nos Parameters.")
+	@ApiResponse(responseCode = "200", description = "Pessoa atualizada com sucesso.")
+	@ApiResponse(responseCode = "404", description = "Falha ao atualizar a pessoa.")
 	@PutMapping("/{id}")
-	public ResponseEntity<Pessoa> updateById(@PathVariable Long id, @RequestBody PessoaSemIdDTO pessoa){
+	public ResponseEntity<Pessoa> updateById(@Parameter(description = "ID da pessoa a ser atualizada") @PathVariable Long id, @RequestBody PessoaSemIdDTO pessoa){
 		Pessoa updPessoa = pessoaService.update(id, pessoa);
 
 		if(updPessoa == null) return ResponseEntity.notFound().build();
@@ -73,6 +96,10 @@ public class PessoaResource {
 		return ResponseEntity.ok(updPessoa);
 	}
 	
+	@Operation(summary = "Excluir Pessoa por ID", 
+	           description = "Remove uma pessoa cadastrada com base no ID <br>"
+	           		+ "Todos os contatos relacionados a pessoa serão removidos em conjunto.")
+	@ApiResponse(responseCode = "204", description = "Pessoa e todos contatos relacionados excluidos com sucesso.")
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deleteById(@PathVariable Long id){
 		pessoaService.delete(id);
