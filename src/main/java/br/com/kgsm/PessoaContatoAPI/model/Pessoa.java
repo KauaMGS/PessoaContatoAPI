@@ -40,16 +40,15 @@ public class Pessoa {
 	
 	public Pessoa() {}
 
-	public Pessoa(Long id, String nome, String endereco, String cep, String cidade, String uf) {
+	public Pessoa(String nome, String endereco, String cep, String cidade, String uf) {
 		super();
-		this.id = id;
 		this.nome = nome;
 		this.endereco = endereco;
 		this.cep = cep;
 		this.cidade = cidade;
 		this.uf = uf;
 	}
-
+	
 	public Long getId() {
 		return id;
 	}
@@ -90,6 +89,10 @@ public class Pessoa {
 	}
 	public void setUf(String uf) {
 		this.uf = uf;
+	}
+	
+	public String toMalaDireta() {
+		return this.endereco + " - " + "CEP: " + this.cep + " - " + this.cidade + "/" + this.uf;
 	}
 
 	@Override

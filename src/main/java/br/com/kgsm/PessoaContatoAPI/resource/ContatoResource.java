@@ -1,5 +1,6 @@
 package br.com.kgsm.PessoaContatoAPI.resource;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.kgsm.PessoaContatoAPI.DTO.ContatoDTO;
+import br.com.kgsm.PessoaContatoAPI.DTO.PessoaContatoDTO;
 import br.com.kgsm.PessoaContatoAPI.model.Contato;
 import br.com.kgsm.PessoaContatoAPI.service.ContatoService;
 
@@ -25,8 +28,8 @@ public class ContatoResource {
 	private ContatoService contatoService;
 	
 	@PostMapping
-	public ResponseEntity<Contato> save(@RequestBody Contato contato){
-		Contato newContato = contatoService.save(contato);
+	public ResponseEntity<Contato> save(@RequestBody ContatoDTO contatoDTO){
+		Contato newContato = contatoService.save(contatoDTO);
 		
 		if(newContato == null) return ResponseEntity.notFound().build();
 		
@@ -42,9 +45,18 @@ public class ContatoResource {
 		return ResponseEntity.ok(findContato);
 	}
 	
+	@GetMapping("/pessoa/{id}")
+	public ResponseEntity<List<PessoaContatoDTO>> findAllContatoDePessoa(Long id){
+		List<PessoaContatoDTO> allContatoPessoaDTO = contatoService.findAllContatoDePessoa(id);
+		
+		if(allContatoPessoaDTO.isEmpty()) return ResponseEntity.notFound().build();
+		
+		return ResponseEntity.ok(allContatoPessoaDTO);
+	}
+	
 	@PutMapping("/{id}")
-	public ResponseEntity<Contato> update(@PathVariable Long id, @RequestBody Contato contato){
-		Contato updContato = contatoService.update(id, contato);
+	public ResponseEntity<Contato> update(@PathVariable Long id, @RequestBody ContatoDTO contatoDTO){
+		Contato updContato = contatoService.update(id, contatoDTO);
 		
 		if(updContato == null) return ResponseEntity.notFound().build();
 		

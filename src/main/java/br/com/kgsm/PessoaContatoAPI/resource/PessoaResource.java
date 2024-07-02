@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.kgsm.PessoaContatoAPI.DTO.PessoaMalaDiretaDTO;
+import br.com.kgsm.PessoaContatoAPI.DTO.PessoaSemIdDTO;
 import br.com.kgsm.PessoaContatoAPI.model.Pessoa;
 import br.com.kgsm.PessoaContatoAPI.service.PessoaService;
 
@@ -26,7 +28,7 @@ public class PessoaResource {
 	PessoaService pessoaService;
 	
 	@PostMapping
-	public ResponseEntity<Pessoa> save(@RequestBody Pessoa pessoa){
+	public ResponseEntity<Pessoa> save(@RequestBody PessoaSemIdDTO pessoa){
 		Pessoa newPessoa = pessoaService.save(pessoa);
 		
 		if(newPessoa == null) return ResponseEntity.notFound().build();
@@ -42,6 +44,16 @@ public class PessoaResource {
 		
 		return ResponseEntity.ok(findPessoa);
 	}
+	
+	@GetMapping("/maladireta/{id}")
+	public ResponseEntity<PessoaMalaDiretaDTO> malaDireta(@PathVariable Long id){
+		PessoaMalaDiretaDTO pessoaMalaDireta = pessoaService.pessoaMalaDireta(id);
+		
+		if(pessoaMalaDireta == null) return ResponseEntity.notFound().build();
+		
+		return ResponseEntity.ok(pessoaMalaDireta);
+	}
+	
 	@GetMapping
 	public ResponseEntity<List<Pessoa>> findAll(){
 		List<Pessoa> allPessoas = pessoaService.findAll();
@@ -53,7 +65,7 @@ public class PessoaResource {
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Pessoa> updateById(@PathVariable Long id, @RequestBody Pessoa pessoa){
+	public ResponseEntity<Pessoa> updateById(@PathVariable Long id, @RequestBody PessoaSemIdDTO pessoa){
 		Pessoa updPessoa = pessoaService.update(id, pessoa);
 
 		if(updPessoa == null) return ResponseEntity.notFound().build();
