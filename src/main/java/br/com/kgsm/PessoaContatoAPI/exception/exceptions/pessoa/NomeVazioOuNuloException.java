@@ -6,4 +6,5 @@ public class NomeVazioOuNuloException extends RuntimeException{
 	public NomeVazioOuNuloException() {
 		super("Nome vazio ou nulo.");
 	}
+	
 }

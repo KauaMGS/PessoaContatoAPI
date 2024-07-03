@@ -126,5 +126,4 @@ public class Pessoa {
 				"uf = " + this.uf + "]";
 	}
 	
-	
 }

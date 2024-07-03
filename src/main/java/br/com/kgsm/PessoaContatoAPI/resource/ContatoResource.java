@@ -47,6 +47,7 @@ public class ContatoResource {
 	@Operation(summary = "Buscar Contato por ID", 
 	           description = "Recupera um contato existente com base no ID fornecido.")
 	@ApiResponse(responseCode = "200", description = "Contato encontrado.")
+	@ApiResponse(responseCode = "400", description = "Tipo de contato inserio inválido.")
 	@ApiResponse(responseCode = "404", description = "Contato não encontrado.")
 	@GetMapping("/{id}")
 	public ResponseEntity<Optional<Contato>> findById(@PathVariable Long id){
@@ -73,6 +74,7 @@ public class ContatoResource {
 	@Operation(summary = "Atualizar Contato por ID", 
 	           description = "Atualiza os dados de um contato existente com base no ID fornecido, sem a necessidade de passar um ID no Request body, apenas nos Parameters.")
 	@ApiResponse(responseCode = "200", description = "Contato atualizado com sucesso.")
+	@ApiResponse(responseCode = "400", description = "Tipo de contato inserio inválido.")
 	@ApiResponse(responseCode = "404", description = "Falha ao atualizar o contato.")
 	@PutMapping("/{id}")
 	public ResponseEntity<Contato> update(@PathVariable Long id, @RequestBody ContatoSimplesDTO contatoSimplesDTO){
