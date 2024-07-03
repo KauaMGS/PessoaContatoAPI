@@ -52,9 +52,9 @@ public class ApplicationExceptionHandler {
 	
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ApiError> handleHttpMessageNotReadableException() {
-		ApiError error = new ApiError(HttpStatus.NOT_ACCEPTABLE.value(), HttpStatus.NOT_ACCEPTABLE.name(), "Tipo de contato inserido é invalido.");
+		ApiError error = new ApiError(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.name(), "Tipo de contato inserido é invalido.");
     	
-        return new ResponseEntity<>(error, HttpStatus.NOT_ACCEPTABLE);
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 	
 }
