@@ -29,12 +29,14 @@
   <div class="section">
     <h2>🔧 Configuração</h2>
     <p>O banco de dados é configurado automaticamente pelo Spring Boot, sendo criado caso não exista nenhum. Certifique-se de ter o MySQL 8.0 instalado e que as credenciais no arquivo <code>application.properties</code> estão corretas.</p>
-	<p>Recomenda-se o uso de Docker com a image:mysql:latest rodando na porta 3306</p>
-	<p>Caso for fazer o banco manualmente crie nos seguintes parâmetros:</p>
-	<p>Banco de dados: mysql</p>
-	<p>Nome do banco: dbapi</p>
-	<p>Username: root</p>
-	<p>Password: 123456</p>
+	<p><strong>Recomenda-se o uso de Docker com a image:mysql:latest rodando na porta 3306</strong></p>
+	<p> - Caso for fazer o banco manualmente crie nos seguintes parâmetros:</p>
+	<ul> 
+		<li>Banco de dados: mysql</li>
+		<li>Nome do banco: dbapi</li>
+		<li>Username: root</li>
+		<li>Password: 123456</li>
+	</ul>
  </div>
 
   <div class="section">
